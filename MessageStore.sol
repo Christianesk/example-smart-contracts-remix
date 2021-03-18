@@ -14,7 +14,7 @@ contract MessageStore is Ownable{
         
     }
     
-    function setMessage(string memory newMessage) public payable isOwner {
+    function setMessage(string memory newMessage) public payable {
         require(msg.value == 3 ether);
         message = newMessage;
     }
@@ -30,6 +30,11 @@ contract MessageStore is Ownable{
     
     function getBalanceInEther() public view returns(uint){
         return getBalance() /1e18;
+    }
+    
+    function transfer(uint amount) public isOwner{
+        require(address(this).balance >= amount);
+        owner.transfer(amount);
     }
     
 }
