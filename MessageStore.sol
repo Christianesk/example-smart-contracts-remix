@@ -2,26 +2,26 @@
 
 pragma solidity >=0.7.0 <0.8.0;
 
+import "./Ownable.sol";
 
 
-contract MessageStore{
+
+contract MessageStore is Ownable{
     
-    address private owner;
     string private message;
     
-    
-    
-    
-    constructor() {
-        owner = msg.sender;
+    constructor(){
+        
     }
     
-    
-    function setMessage(string memory newMessage) public  {
+    function setMessage(string memory newMessage) public payable isOwner {
+        require(msg.value == 3 ether);
         message = newMessage;
     }
     
     function getMessage() public view returns (string memory) {
         return message;
     }
+    
+    
 }
